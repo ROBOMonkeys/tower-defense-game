@@ -13,10 +13,10 @@ Vars:
     """
     
     def __init__(self, img_path, loc, callback=None):
-        self.img = image.load(img_path).convert_alpha()
+        self.srf = image.load(img_path).convert_alpha()
         self.location = loc
-        self.height = self.img.get_height()
-        self.width = self.img.get_width()
+        self.height = self.srf.get_height()
+        self.width = self.srf.get_width()
         self.callback = callback
 
 
@@ -50,12 +50,12 @@ Vars:
         self.fnt.set_italic(italics)
         
         if bg_color is not None:
-            self.img = self.fnt.render(text, 1, color, bg_color)
+            self.srf = self.fnt.render(text, 1, color, bg_color)
         else:
-            self.img = self.fnt.render(text, 1, color)
+            self.srf = self.fnt.render(text, 1, color)
         
-        self.width = self.img.get_width()
-        self.height = self.img.get_height()
+        self.width = self.srf.get_width()
+        self.height = self.srf.get_height()
         
         self.location = loc
         self.callback = callback

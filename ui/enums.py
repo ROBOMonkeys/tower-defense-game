@@ -6,8 +6,32 @@ RESOURCES = path.dirname(path.realpath(__file__)) + "/../test-res/"
 DEFAULT_FONT = RESOURCES + "fonts/FiraSans-Light.ttf"
 DEFAULT_SIZE = 24
 
+DEFAULT_WIDTH = 640
+DEFAULT_HIEGHT = 480
 
-class Clickable():
+class Drawable():
+    def isDrawable(self, obj_to_test):
+        return type(self) in obj_to_test.__class__.__bases__
+    
+    def draw(self, srf):
+        """
+        Draws the button onto the specified surface
+        
+        Vars:
+         srf = Surface object to draw the object on
+        """
+        if type(self.srf) == list:
+            for surface in self.srf:
+                if not self.isDrawable(surface):
+                    srf.blit(surface.srf, surface.location)
+                else:
+                    surface.draw(srf)
+        else:
+            if self.location is not None:
+                srf.blit(self.srf, self.location)
+
+
+class Clickable(Drawable):
     """
     Just an interface for clickable classes to inherit from
     """
@@ -37,11 +61,4 @@ class Clickable():
             if self.callback is not None:
                 self.callback()
 
-    def draw(self, srf):
-        """
-        Draws the button onto the specified surface
-        
-        Vars:
-         srf = Surface object to draw the button on
-        """
-        srf.blit(self.img, self.location)
+
