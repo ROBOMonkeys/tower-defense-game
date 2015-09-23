@@ -28,6 +28,7 @@ Vars:
  text      = text to render
  loc       = location to display the button
  color     = color to display the text
+ bg_color  = color for the text background
  callback  = function to call when button is clicked
  fnt       = font to use
  size      = size of text
@@ -36,8 +37,8 @@ Vars:
  italics   = render text italicized
     """
     
-    def __init__(self, text, loc, color=(0, 0, 0), callback=None,
-                 fnt=DEFAULT_FONT, size=DEFAULT_SIZE,
+    def __init__(self, text, loc, color=(0, 0, 0), bg_color=None,
+                 callback=None, fnt=DEFAULT_FONT, size=DEFAULT_SIZE,
                  bold=False, underline=False, italics=False):
         
         if not font.get_init():
@@ -48,7 +49,10 @@ Vars:
         self.fnt.set_underline(underline)
         self.fnt.set_italic(italics)
         
-        self.img = self.fnt.render(text, 1, color)
+        if bg_color is not None:
+            self.img = self.fnt.render(text, 1, color, bg_color)
+        else:
+            self.img = self.fnt.render(text, 1, color)
         
         self.width = self.img.get_width()
         self.height = self.img.get_height()
