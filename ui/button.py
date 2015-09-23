@@ -1,7 +1,8 @@
-from pygame import image, mouse
+from pygame import image, font
+from enums import Clickable, DEFAULT_FONT, DEFAULT_SIZE
 
 
-class ImageButton():
+class ImageButton(Clickable):
     """
 A button class that allows the use of an image as the clickable aspect
 
@@ -17,37 +18,40 @@ Vars:
         self.height = self.img.get_height()
         self.width = self.img.get_width()
         self.callback = callback
-        
-    def isOver(self):
-        """
-        Returns True or False if the mouse is over the button when the
-         MOUSEBUTTONDOWN event happened
-        """
-        ms_x, ms_y = mouse.get_pos()
-        loc_x, loc_y = self.location
-        
-        if (ms_x < (loc_x + self.width) and
-            ms_y > loc_y and
-            ms_x > loc_x and
-            ms_y < (loc_y + self.height)):
-            return True
-        else:
-            return False
-        
-    def click(self):
-        """
-        Checks to see if the button was clicked, then runs the callback
-        function if there was one
-        """
-        if self.isOver():
-            if self.callback is not None:
-                self.callback()
 
-    def draw(self, srf):
-        """
-        Draws the button onto the specified surface
+
+class TextButton(Clickable):
+    """
+A button class that allows the use of text as the clickable aspect
+
+Vars:
+ text      = text to render
+ loc       = location to display the button
+ color     = color to display the text
+ callback  = function to call when button is clicked
+ fnt       = font to use
+ size      = size of text
+ bold      = render text bolded
+ underline = render text underlined
+ italics   = render text italicized
+    """
+    
+    def __init__(self, text, loc, color=(0, 0, 0), callback=None,
+                 fnt=DEFAULT_FONT, size=DEFAULT_SIZE,
+                 bold=False, underline=False, italics=False):
         
-        Vars:
-         srf = Surface object to draw the button on
-        """
-        srf.blit(self.img, self.location)
+        if not font.get_init():
+            font.init()
+        self.fnt = font.Font(fnt, size)
+        
+        self.fnt.set_bold(bold)
+        self.fnt.set_underline(underline)
+        self.fnt.set_italic(italics)
+        
+        self.img = self.fnt.render(text, 1, color)
+        
+        self.width = self.img.get_width()
+        self.height = self.img.get_height()
+        
+        self.location = loc
+        self.callback = callback

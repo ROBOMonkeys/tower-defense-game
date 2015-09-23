@@ -4,16 +4,18 @@
 
 import pygame
 from pygame.locals import QUIT, KEYDOWN, MOUSEBUTTONDOWN, K_q
-from ui.button import ImageButton
+from ui.button import ImageButton, TextButton
+from ui.enums import RESOURCES
+
 
 def test():
-    print 'okay'
+    print('okay')
 
 pygame.init()
 
 screen = pygame.display.set_mode((640, 480))
-bg = pygame.image.load('test-art/white_bg.png').convert()
-monkey = pygame.image.load('test-art/monkey.png').convert_alpha()
+bg = pygame.image.load(RESOURCES + 'white_bg.png').convert()
+monkey = pygame.image.load(RESOURCES + 'monkey.png').convert_alpha()
 
 running = True
 
@@ -21,7 +23,8 @@ screen.blit(bg, (0, 0))
 screen.blit(monkey, (300, 300))
 pygame.display.update()
 
-buttons = [ImageButton('test-art/ok_button.png', (300, 200), test)]
+buttons = [ImageButton(RESOURCES + 'ok_button.png', (300, 200), test),
+           TextButton("Start", (300, 100), (0, 0, 0), test)]
 
 for btn in buttons:
     btn.draw(screen)
