@@ -3,7 +3,7 @@
 # TODO: grid based map system
 
 import pygame
-from sys import argv
+from sys import argv, exit
 from pygame.locals import QUIT, KEYDOWN, MOUSEBUTTONDOWN, K_q
 from ui.button import ImageButton, TextButton
 from ui.menu import Menu
@@ -26,6 +26,10 @@ def quit_game():
     global running
     running = False
 
+if len(argv) < 2:
+    print("python2 main.py menu (or buttons)")
+    exit(1)
+    
 pygame.init()
 
 screen = pygame.display.set_mode((640, 480))
@@ -45,13 +49,14 @@ if argv[1] == "buttons":
     for btn in buttons:
         btn.draw(screen)
 elif argv[1] == "menu":
-    
-    mn1 = Menu(("New Title", (300, 200)),
+    buttons = False
+    mn1 = Menu(("Amazing Cool Game!", (250, 200)),
                ("Start", "Options", "Quit"),
                ((310, 300),
                 (310, 340),
                 (310, 380)),
-               (start_game, open_options, quit_game))
+               (start_game, open_options, quit_game),
+               bg_img=RESOURCES + "main_menu.png")
     
     mn1.draw(screen)
 

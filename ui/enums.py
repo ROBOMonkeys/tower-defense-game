@@ -22,10 +22,13 @@ class Drawable():
         """
         if type(self.srf) == list:
             for surface in self.srf:
-                if not self.isDrawable(surface):
+                if not self.isDrawable(surface) and \
+                   surface.__class__.__name__ != "Surface":
                     srf.blit(surface.srf, surface.location)
-                else:
+                elif self.isDrawable(surface):
                     surface.draw(srf)
+                else:
+                    srf.blit(surface, self.location)
         else:
             if self.location is not None:
                 srf.blit(self.srf, self.location)
