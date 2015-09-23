@@ -9,6 +9,13 @@ DEFAULT_SIZE = 24
 DEFAULT_WIDTH = 640
 DEFAULT_HIEGHT = 480
 
+MAPS = []
+CUR_MAP = None
+PATHS = []
+
+TILE_H = 32
+TILE_W = 32
+
 class Drawable():
     def isDrawable(self, obj_to_test):
         return type(self) in obj_to_test.__class__.__bases__
