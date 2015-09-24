@@ -1,4 +1,4 @@
-from pygame import mouse
+from pygame import mouse, image
 from os import path
 
 RESOURCES = path.dirname(path.realpath(__file__)) + "/../test-res/"
@@ -6,11 +6,11 @@ RESOURCES = path.dirname(path.realpath(__file__)) + "/../test-res/"
 DEFAULT_FONT = RESOURCES + "fonts/FiraSans-Light.ttf"
 DEFAULT_SIZE = 24
 
-DEFAULT_WIDTH = 640
-DEFAULT_HIEGHT = 480
+DEFAULT_WIDTH = 800
+DEFAULT_HEIGHT = 600
 
 MAPS = []
-CUR_MAP = None
+CUR_MAP = 0
 PATHS = []
 
 TILE_H = 32
@@ -18,6 +18,12 @@ TILE_W = 32
 
 class Drawable():
     def isDrawable(self, obj_to_test):
+        """
+        Checks to see if an object has inherited from Drawable
+        
+        Vars:
+         obj_to_test = object to test
+        """
         return type(self) in obj_to_test.__class__.__bases__
     
     def draw(self, srf):

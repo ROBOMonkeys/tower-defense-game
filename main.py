@@ -5,10 +5,12 @@
 import pygame
 from sys import argv, exit
 from pygame.locals import QUIT, KEYDOWN, MOUSEBUTTONDOWN, K_q
+from pygame import image
 from ui.button import ImageButton, TextButton
 from ui.menu import Menu
-from ui.enums import RESOURCES
-
+import ui.enums as enums
+from util.util import add_path, add_map, set_current_map, get_current_map
+import util.scanner as scanner
 
 def test():
     print('okay')
@@ -32,18 +34,26 @@ if len(argv) < 2:
     
 pygame.init()
 
-screen = pygame.display.set_mode((640, 480))
-bg = pygame.image.load(RESOURCES + 'white_bg.png').convert()
-monkey = pygame.image.load(RESOURCES + 'monkey.png').convert_alpha()
+screen = pygame.display.set_mode((enums.DEFAULT_WIDTH, enums.DEFAULT_HEIGHT))
+#monkey = pygame.image.load(enums.RESOURCES + 'monkey.png').convert_alpha()
+
+add_path((image.load(enums.RESOURCES + "dirt1.jpg").convert_alpha(),
+          image.load(enums.RESOURCES + "dirt2.jpg").convert_alpha()))
+
+add_map(image.load(enums.RESOURCES + "map.jpg").convert())
+
+scanner.scan_map()
 
 running = True
 
+bg = get_current_map()
+
 screen.blit(bg, (0, 0))
-screen.blit(monkey, (300, 300))
+#screen.blit(monkey, (300, 300))
 pygame.display.update()
 
 if argv[1] == "buttons":
-    buttons = [ImageButton(RESOURCES + 'ok_button.png', (300, 200), test),
+    buttons = [ImageButton(enums.RESOURCES + 'ok_button.png', (300, 200), test),
                TextButton("Start", (300, 100), (0, 0, 0), callback=test)]
     
     for btn in buttons:
@@ -56,9 +66,11 @@ elif argv[1] == "menu":
                 (310, 340),
                 (310, 380)),
                (start_game, open_options, quit_game),
-               bg_img=RESOURCES + "main_menu.png")
+               bg_img=enums.RESOURCES + "main_menu.png")
     
     mn1.draw(screen)
+else:
+    pass
 
 while running:
     for event in pygame.event.get():
