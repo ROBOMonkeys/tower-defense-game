@@ -28,5 +28,10 @@ def add_map(new_map):
     else:
         enums.MAPS.append(new_map)
 
+def add_all_maps():
+    for file in listdir(enums.RESOURCES):
+        if file.split(".")[0][:-1] == "map":
+            add_map(enums.RESOURCES + file)    
+
 def get_current_map():
     return enums.MAPS[enums.CUR_MAP]
