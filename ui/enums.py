@@ -1,9 +1,10 @@
 from pygame import mouse, image
 from os import path
 
-RESOURCES = path.dirname(path.realpath(__file__)) + "/../test-res/"
+TEST_RES = path.dirname(path.realpath(__file__)) + "/../test-res/"
+RES = path.dirname(path.realpath(__file__)) + "/../res/"
 
-DEFAULT_FONT = RESOURCES + "fonts/FiraSans-Light.ttf"
+DEFAULT_FONT = RES + "fonts/FiraSans-Light.ttf"
 DEFAULT_SIZE = 24
 
 DEFAULT_WIDTH = 800

@@ -9,7 +9,7 @@ from pygame import image, time
 from ui.button import ImageButton, TextButton
 from ui.menu import Menu
 import ui.enums as enums
-from util.util import add_path, add_map, set_current_map, get_current_map
+from util.util import add_all_paths, add_all_maps, set_current_map, get_current_map, use_test_res
 import util.scanner as scanner
 
 def test():
@@ -34,13 +34,14 @@ if len(argv) < 2:
     
 pygame.init()
 
+if argv[1] == "test":
+    use_test_res()
+
 screen = pygame.display.set_mode((enums.DEFAULT_WIDTH, enums.DEFAULT_HEIGHT))
-#monkey = pygame.image.load(enums.RESOURCES + 'monkey.png').convert_alpha()
+#monkey = pygame.image.load(enums.RES + 'monkey.png').convert_alpha()
 
-add_path((image.load(enums.RESOURCES + "dirt1.jpg").convert_alpha(),
-          image.load(enums.RESOURCES + "dirt2.jpg").convert_alpha()))
-
-add_map(image.load(enums.RESOURCES + "map.jpg").convert())
+add_all_paths()
+add_all_maps()
 
 scanner.scan_map()
 
@@ -55,7 +56,7 @@ screen.blit(bg, (0, 0))
 pygame.display.update()
 
 if argv[1] == "buttons":
-    buttons = [ImageButton(enums.RESOURCES + 'ok_button.png', (300, 200), test),
+    buttons = [ImageButton(enums.RES + 'ok_button.png', (300, 200), test),
                TextButton("Start", (300, 100), (0, 0, 0), callback=test)]
     
     for btn in buttons:
@@ -68,11 +69,12 @@ elif argv[1] == "menu":
                 (310, 340),
                 (310, 380)),
                (start_game, open_options, quit_game),
-               bg_img=enums.RESOURCES + "main_menu.png")
+               bg_img=enums.RES + "main_menu.png")
     
     mn1.draw(screen)
 else:
     pass
+    
 
 while running:
     for event in pygame.event.get():
@@ -81,11 +83,11 @@ while running:
         elif event.type == KEYDOWN and event.key == K_q:
             running = False
         elif event.type == MOUSEBUTTONDOWN:
-            if buttons:
-                for btn in buttons:
-                    btn.click()
-            else:
-                mn1.handle_clicks()
+            enums.CUR_MAP += 1
+            if enums.CUR_MAP >= len(enums.MAPS):
+                enums.CUR_MAP = 0
+            screen.blit(enums.MAPS[enums.CUR_MAP], (0,0))
+            scanner.scan_map()
     pygame.display.update()
     clk.tick(60)
 
