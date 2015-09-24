@@ -5,7 +5,7 @@
 import pygame
 from sys import argv, exit
 from pygame.locals import QUIT, KEYDOWN, MOUSEBUTTONDOWN, K_q
-from pygame import image
+from pygame import image, time
 from ui.button import ImageButton, TextButton
 from ui.menu import Menu
 import ui.enums as enums
@@ -46,6 +46,8 @@ scanner.scan_map()
 
 running = True
 
+clk = time.Clock()
+
 bg = get_current_map()
 
 screen.blit(bg, (0, 0))
@@ -85,5 +87,6 @@ while running:
             else:
                 mn1.handle_clicks()
     pygame.display.update()
+    clk.tick(60)
 
 pygame.quit()
