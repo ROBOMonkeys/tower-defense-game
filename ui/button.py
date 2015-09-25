@@ -1,5 +1,6 @@
 from pygame import image, font
-from ui.enums import Clickable, DEFAULT_FONT, DEFAULT_FONT_SIZE
+from ui.enums import DEFAULT_FONT, DEFAULT_FONT_SIZE
+from ui.interfaces import Clickable
 
 
 class ImageButton(Clickable):

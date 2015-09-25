@@ -1,6 +1,7 @@
 from pygame import font, image
 from button import TextButton, ImageButton
-from ui.enums import Drawable, DEFAULT_FONT, DEFAULT_FONT_SIZE
+from ui.enums import DEFAULT_FONT, DEFAULT_FONT_SIZE
+from ui.interfaces import Drawable
 
 
 class MenuText(Drawable):

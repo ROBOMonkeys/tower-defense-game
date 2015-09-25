@@ -9,3 +9,5 @@ DEFAULT_HEIGHT = 600
 MAPS = []
 CUR_MAP = 0
 PATHS = []
+
+MAP_GRID = []

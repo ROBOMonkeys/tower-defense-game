@@ -44,7 +44,7 @@ def add_map(new_map):
 def add_all_maps():
     for file in listdir(enums.RES + "maps/"):
         if file.split(".")[0][:3] == "map":
-            add_map(enums.RES + "maps/" + file)    
+            add_map(enums.RES + "maps/" + file)
 
 
 def get_current_map():
