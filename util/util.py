@@ -49,3 +49,11 @@ def add_all_maps():
 
 def get_current_map():
     return enums.MAPS[enums.CUR_MAP]
+
+
+def cover_up(loc, spr_dim):
+    enums.SCREEN.blit(get_current_map().subsurface(loc[0],
+                                                   loc[1],
+                                                   spr_dim[0],
+                                                   spr_dim[1]),
+                      loc)

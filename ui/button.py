@@ -12,7 +12,7 @@ Vars:
  loc      = location to display the button
  callback = function to call when the button is clicked, defaults to None
     """
-    
+
     def __init__(self, img_path, loc, callback=None):
         self.srf = image.load(img_path).convert_alpha()
         self.location = loc
@@ -37,7 +37,7 @@ Vars:
  underline = render text underlined
  italics   = render text italicized
     """
-    
+
     def __init__(self, text, loc, color=(0, 0, 0), bg_color=None,
                  callback=None, fnt=DEFAULT_FONT, size=DEFAULT_FONT_SIZE,
                  bold=False, underline=False, italics=False):
