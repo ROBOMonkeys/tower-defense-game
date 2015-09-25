@@ -1,6 +1,10 @@
 from ui.interfaces import Drawable
 from util.util import cover_up
-import util.enums 
+import util.enums
+
+
+class Intelligent():
+    pass
 
 
 class Animated():
@@ -56,12 +60,12 @@ class Moveable(Drawable):
         return (x, y)
 
 
-class Creature(Animated, Moveable):
+class Creature(Animated, Moveable, Intelligent):
     def __init__(self, frames):
         Animated.__init__(self, frames)
         self.damage = 0
         self.hp = 0
-        self.speed = spd
+        self.speed = 0
         self.srf = self.frames[0]
         self.height = self.srf.get_height()
         self.width = self.srf.get_width()
