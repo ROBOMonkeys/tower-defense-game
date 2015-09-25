@@ -22,24 +22,38 @@ class Animated():
 
 class Moveable(Drawable):
     def move_up(self):
+        moved = self.calc_movement()
         cover_up(self.location, (self.height, self.width))
-        self.location[1] -= self.height
+        self.location[1] -= int(moved[1])
         self.draw(util.enums.SCREEN)
 
     def move_down(self):
+        moved = self.calc_movement()
         cover_up(self.location, (self.height, self.width))
-        self.location[1] += self.height
+        self.location[1] += int(moved[1])
         self.draw(util.enums.SCREEN)
 
     def move_left(self):
+        moved = self.calc_movement()
         cover_up(self.location, (self.height, self.width))
-        self.location[0] -= self.width
+        self.location[0] -= int(moved[0])
         self.draw(util.enums.SCREEN)
 
     def move_right(self):
+        moved = self.calc_movement()
         cover_up(self.location, (self.height, self.width))
-        self.location[0] += self.width
+        self.location[0] += int(moved[0])
         self.draw(util.enums.SCREEN)
+
+    def calc_movement(self):
+        moved_h = self.height * self.speed
+        moved_w = self.width * self.speed
+        return (moved_h, moved_w)
+
+    def moved_coord(self, loc, mvmnt):
+        x = loc[0] - mvmnt[0]
+        y = loc[1] - mvmnt[1]
+        return (x, y)
 
 
 class Creature(Animated, Moveable):
@@ -47,7 +61,7 @@ class Creature(Animated, Moveable):
         Animated.__init__(self, frames)
         self.damage = 0
         self.hp = 0
-        self.speed = 0
+        self.speed = spd
         self.srf = self.frames[0]
         self.height = self.srf.get_height()
         self.width = self.srf.get_width()
