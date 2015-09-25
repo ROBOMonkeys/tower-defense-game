@@ -9,6 +9,7 @@ DEFAULT_HEIGHT = 685
 MAPS = []
 CUR_MAP = 0
 PATHS = []
+SPRITES = []
 
 SCREEN = None
 
