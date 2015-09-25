@@ -1,5 +1,5 @@
 from pygame import image, font
-from enums import Clickable, DEFAULT_FONT, DEFAULT_SIZE
+from ui.enums import Clickable, DEFAULT_FONT, DEFAULT_FONT_SIZE
 
 
 class ImageButton(Clickable):
@@ -38,7 +38,7 @@ Vars:
     """
     
     def __init__(self, text, loc, color=(0, 0, 0), bg_color=None,
-                 callback=None, fnt=DEFAULT_FONT, size=DEFAULT_SIZE,
+                 callback=None, fnt=DEFAULT_FONT, size=DEFAULT_FONT_SIZE,
                  bold=False, underline=False, italics=False):
         
         if not font.get_init():

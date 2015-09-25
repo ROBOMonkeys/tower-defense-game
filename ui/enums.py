@@ -1,21 +1,12 @@
-from pygame import mouse, image
-from os import path
-
-TEST_RES = path.dirname(path.realpath(__file__)) + "/../test-res/"
-RES = path.dirname(path.realpath(__file__)) + "/../res/"
-
-DEFAULT_FONT = RES + "fonts/FiraSans-Light.ttf"
-DEFAULT_SIZE = 24
-
-DEFAULT_WIDTH = 800
-DEFAULT_HEIGHT = 600
-
-MAPS = []
-CUR_MAP = 0
-PATHS = []
+from pygame import mouse
+from util.enums import RES
 
 TILE_H = 32
 TILE_W = 32
+
+DEFAULT_FONT = RES + "fonts/FiraSans-Light.ttf"
+DEFAULT_FONT_SIZE = 24
+
 
 class Drawable():
     def isDrawable(self, obj_to_test):

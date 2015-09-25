@@ -8,7 +8,8 @@ from pygame.locals import QUIT, KEYDOWN, MOUSEBUTTONDOWN, K_q
 from pygame import image, time
 from ui.button import ImageButton, TextButton
 from ui.menu import Menu
-import ui.enums as enums
+import ui.enums as ui_enums
+import util.enums as enums
 from util.util import add_all_paths, add_all_maps, set_current_map, get_current_map, use_test_res
 import util.scanner as scanner
 

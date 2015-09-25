@@ -1,6 +1,6 @@
 from pygame import font, image
 from button import TextButton, ImageButton
-from enums import Drawable, DEFAULT_FONT, DEFAULT_SIZE
+from ui.enums import Drawable, DEFAULT_FONT, DEFAULT_FONT_SIZE
 
 
 class MenuText(Drawable):
@@ -16,7 +16,7 @@ Vars:
  bg_color = background color of the text
     """
     def __init__(self, text, loc,
-                 fnt=DEFAULT_FONT, size=DEFAULT_SIZE,
+                 fnt=DEFAULT_FONT, size=DEFAULT_FONT_SIZE,
                  color=(0, 0, 0), bg_color=None):
         super(type(self), self).__init__()
         
