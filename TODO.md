@@ -19,6 +19,7 @@
 - pause menu
 - credits
 - options (?)
+- make tool-tip class (see Surface.set_alpha)
 
 ## Art Team
 
