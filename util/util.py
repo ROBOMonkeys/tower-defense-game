@@ -57,3 +57,7 @@ def cover_up(loc, spr_dim):
                                                    spr_dim[0],
                                                    spr_dim[1]),
                       loc)
+
+
+def build_in_game_ui():
+    pass

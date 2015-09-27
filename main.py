@@ -61,7 +61,7 @@ if argv[1] == "test":
     
 pygame.init()
 pygame.mixer.init()
-pygame.mixer.music.load(enums.RES + "music/jungle-test.ogg")
+pygame.mixer.music.load(enums.RES + "music/chee-zee-jungle.ogg")
 pygame.mixer.music.play(-1)
 
 enums.SCREEN = pygame.display.set_mode((enums.DEFAULT_WIDTH,
