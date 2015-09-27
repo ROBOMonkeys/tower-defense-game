@@ -55,13 +55,14 @@ if len(argv) < 2:
     print("python2 main.py menu (or buttons)")
     exit(1)
 
+
+if argv[1] == "test":
+    use_test_res()
+    
 pygame.init()
 pygame.mixer.init()
 pygame.mixer.music.load(enums.RES + "music/jungle-test.ogg")
 pygame.mixer.music.play(-1)
-
-if argv[1] == "test":
-    use_test_res()
 
 enums.SCREEN = pygame.display.set_mode((enums.DEFAULT_WIDTH,
                                         enums.DEFAULT_HEIGHT))
