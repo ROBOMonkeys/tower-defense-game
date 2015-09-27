@@ -57,7 +57,7 @@ if len(argv) < 2:
 
 pygame.init()
 pygame.mixer.init()
-pygame.mixer.music.load(RES + "music/jungle-test.ogg")
+pygame.mixer.music.load(enums.RES + "music/jungle-test.ogg")
 pygame.mixer.music.play(-1)
 
 if argv[1] == "test":
