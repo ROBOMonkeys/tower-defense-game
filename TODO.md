@@ -1,5 +1,7 @@
 # TODO
 
+- hammer out minigame mechanics
+
 ## Sprites Team
 
 - apply animations to sprites
@@ -11,6 +13,7 @@
 ## Utility Team
 
 - make helper functions for other teams
+- map generator
 
 ## UI Team
 
