@@ -56,11 +56,6 @@ def open_options():
     print('options opened')
 
 
-if len(argv) < 2:
-    print("python2 main.py menu (or buttons)")
-    exit(1)
-
-
 c = None
 
 pygame.init()
@@ -75,65 +70,65 @@ bg = get_current_map()
 enums.SCREEN.blit(bg, (0, 0))
 pygame.display.update()
 
-
-if argv[1] == "test":
-    use_test_res()
-    pygame.mixer.init()
-    pygame.mixer.music.load(enums.RES + "music/chee-zee-jungle.ogg")
-    pygame.mixer.music.play(-1)
-    global c
-    c = Creature((image.load(enums.RES + "monkey.png")))
-
-if argv[2] == "buttons":
-    buttons = [ImageButton(enums.RES + 'ok_button.png', (300, 200), test),
-               TextButton("Start", (300, 100), (0, 0, 0), callback=test)]
-
-    for btn in buttons:
-        btn.draw(enums.SCREEN)
-elif argv[2] == "menu":
-    buttons = False
-    mn1 = Menu(("Amazing Cool Game!", (250, 200)),
-               ("Start", "Options", "Quit"),
-               ((310, 300),
-                (310, 340),
-                (310, 380)),
-               (start_game, open_options, quit_game),
-               bg_img=enums.RES + "main_menu.png")
-    mn1.draw(enums.SCREEN)
-elif argv[1] == "scan":
-    btn = TextButton("Print Grid",
+if len(argv) > 1:
+    if argv[1] == "test":
+        use_test_res()
+        pygame.mixer.init()
+        pygame.mixer.music.load(enums.RES + "music/chee-zee-jungle.ogg")
+        pygame.mixer.music.play(-1)
+        global c
+        c = Creature((image.load(enums.RES + "monkey.png")))
+        if argv[2] == "buttons":
+            buttons = [ImageButton(enums.RES + 'ok_button.png', (300, 200), test),
+                       TextButton("Start", (300, 100), (0, 0, 0), callback=test)]
+            
+            for btn in buttons:
+                btn.draw(enums.SCREEN)
+        elif argv[2] == "menu":
+            buttons = False
+            mn1 = Menu(("Amazing Cool Game!", (250, 200)),
+                       ("Start", "Options", "Quit"),
+                       ((310, 300),
+                        (310, 340),
+                        (310, 380)),
+                       (start_game, open_options, quit_game),
+                   bg_img=enums.RES + "main_menu.png")
+            mn1.draw(enums.SCREEN)
+            
+    if argv[1] == "scan":
+        btn = TextButton("Print Grid",
                      (100, 200),
-                     (255, 0, 0),
-                     callback=print_grid)
-    btn2 = TextButton("Print Grid Length",
-                      (200, 200),
-                      (255, 0, 0),
-                      callback=print_grid_len)
-    btn2.draw(enums.SCREEN)
-    btn.draw(enums.SCREEN)
-elif argv[1] == "ui":
-    hearts = []
-    org1 = UIElement(enums.RES + "icons/orangebox1.png", (768, 0))
-    org2 = UIElement(enums.RES + "icons/orangebox2.png", (0, 575))
-    bananas = UIElement(enums.RES + "icons/pixelbananabunch.png",
-                        ui_enums.BUNCH_LOC)
-    gear = UIElement(enums.RES + "icons/gear.png",
-                     ui_enums.GEAR_LOC)
-    clicked = 0
-    bunch_cntr = UIString(": " + str(clicked), (60, 589))
-    gear_cntr = UIString(": 0", (60, 639))
-    org1.draw(enums.SCREEN)
-    org2.draw(enums.SCREEN)
-    bananas.draw(enums.SCREEN)
-    gear.draw(enums.SCREEN)
-    bunch_cntr.draw(enums.SCREEN)
-    gear_cntr.draw(enums.SCREEN)
-    for locs in ui_enums.HEART_LOCS:
-        for loc in locs:
-            hearts.append(UIElement(enums.RES + "icons/heart.png", loc))
-    for heart in hearts:
-        heart.draw(enums.SCREEN)
-
+                         (255, 0, 0),
+                         callback=print_grid)
+        btn2 = TextButton("Print Grid Length",
+                          (200, 200),
+                          (255, 0, 0),
+                          callback=print_grid_len)
+        btn2.draw(enums.SCREEN)
+        btn.draw(enums.SCREEN)
+    elif argv[1] == "ui":
+        hearts = []
+        org1 = UIElement(enums.RES + "icons/orangebox1.png", (768, 0))
+        org2 = UIElement(enums.RES + "icons/orangebox2.png", (0, 575))
+        bananas = UIElement(enums.RES + "icons/pixelbananabunch.png",
+                            ui_enums.BUNCH_LOC)
+        gear = UIElement(enums.RES + "icons/gear.png",
+                         ui_enums.GEAR_LOC)
+        clicked = 0
+        bunch_cntr = UIString(": " + str(clicked), (60, 589))
+        gear_cntr = UIString(": 0", (60, 639))
+        org1.draw(enums.SCREEN)
+        org2.draw(enums.SCREEN)
+        bananas.draw(enums.SCREEN)
+        gear.draw(enums.SCREEN)
+        bunch_cntr.draw(enums.SCREEN)
+        gear_cntr.draw(enums.SCREEN)
+        for locs in ui_enums.HEART_LOCS:
+            for loc in locs:
+                hearts.append(UIElement(enums.RES + "icons/heart.png", loc))
+        for heart in hearts:
+            heart.draw(enums.SCREEN)
+                    
 running = True
 clk = time.Clock()
 
