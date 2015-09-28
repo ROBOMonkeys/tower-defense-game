@@ -14,6 +14,7 @@
 
 - make helper functions for other teams
 - map generator
+- open_donation_page function (python.webbrowser.open(URL, new=2))
 
 ## UI Team
 
@@ -23,6 +24,7 @@
 - credits
 - options (?)
 - make tool-tip class (see Surface.set_alpha)
+- donation screen
 
 ## Art Team
 
