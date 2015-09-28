@@ -8,13 +8,13 @@ from pygame.locals import QUIT, KEYDOWN, MOUSEBUTTONDOWN, \
     K_DOWN, K_UP, K_LEFT, K_RIGHT, K_q
 from pygame import image, time, mouse
 from ui.button import ImageButton, TextButton
-from ui.element import UIElement
+from ui.interfaces import UIElement, UIString
 from ui.menu import Menu
 import ui.enums as ui_enums
 import util.enums as enums
 from util.util import add_all_paths, add_all_maps, \
     set_current_map, get_current_map, use_test_res, \
-    cover_up
+    map_cover_up
 from sprites.interfaces import Creature
 import util.scanner as scanner
 
@@ -113,7 +113,7 @@ elif argv[1] == "scan":
                       callback=print_grid_len)
     btn2.draw(enums.SCREEN)
     btn.draw(enums.SCREEN)
-elif argv[1] == "hearts":
+elif argv[1] == "ui":
     hearts = []
     org1 = UIElement(enums.RES + "icons/orangebox1.png", (768, 0))
     org2 = UIElement(enums.RES + "icons/orangebox2.png", (0, 575))
@@ -121,10 +121,15 @@ elif argv[1] == "hearts":
                         ui_enums.BUNCH_LOC)
     gear = UIElement(enums.RES + "icons/gear.png",
                      ui_enums.GEAR_LOC)
+    clicked = 0
+    bunch_cntr = UIString(": " + str(clicked), (60, 589))
+    gear_cntr = UIString(": 0", (60, 639))
     org1.draw(enums.SCREEN)
     org2.draw(enums.SCREEN)
     bananas.draw(enums.SCREEN)
     gear.draw(enums.SCREEN)
+    bunch_cntr.draw(enums.SCREEN)
+    gear_cntr.draw(enums.SCREEN)
     for locs in ui_enums.HEART_LOCS:
         for loc in locs:
             hearts.append(UIElement(enums.RES + "icons/heart.png", loc))
@@ -157,6 +162,10 @@ while running:
                 if argv[1] == "scan":
                     btn.draw(enums.SCREEN)
                     btn2.draw(enums.SCREEN)
+                elif argv[1] == "ui":
+                    clicked += 1
+                    bunch_cntr.update_text(":  " + str(clicked), True)
+                    hearts[-(clicked % len(hearts))].update_element(enums.RES + "icons/emptyheart.png", False)
             else:
                 btn.click()
                 btn2.click()

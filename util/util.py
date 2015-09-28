@@ -51,11 +51,25 @@ def get_current_map():
     return enums.MAPS[enums.CUR_MAP]
 
 
-def cover_up(loc, spr_dim):
+def map_cover_up(loc, spr_dim):
     enums.SCREEN.blit(get_current_map().subsurface(loc[0],
                                                    loc[1],
                                                    spr_dim[0],
                                                    spr_dim[1]),
+                      loc)
+
+
+def ui_cover_up(loc, dims, bottom):
+    if bottom:
+        locs = (768 - loc[0], loc[1] - 576)
+        ui_side = image.load(enums.RES + "icons/orangebox2.png").convert()
+    else:
+        locs = (loc[0] - 768, 576 - loc[1])
+        ui_side = image.load(enums.RES + "icons/orangebox1.png").convert()
+    enums.SCREEN.blit(ui_side.subsurface(locs[0],
+                                         locs[1],
+                                         dims[0],
+                                         dims[1]),
                       loc)
 
 

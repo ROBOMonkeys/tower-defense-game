@@ -1,5 +1,5 @@
 from ui.interfaces import Drawable
-from util.util import cover_up
+from util.util import map_cover_up
 import util.enums
 
 
@@ -27,25 +27,25 @@ class Animated():
 class Moveable(Drawable):
     def move_up(self):
         moved = self.calc_movement()
-        cover_up(self.location, (self.height, self.width))
+        map_cover_up(self.location, (self.width, self.height))
         self.location[1] -= int(moved[1])
         self.draw(util.enums.SCREEN)
 
     def move_down(self):
         moved = self.calc_movement()
-        cover_up(self.location, (self.height, self.width))
+        map_cover_up(self.location, (self.width, self.height))
         self.location[1] += int(moved[1])
         self.draw(util.enums.SCREEN)
 
     def move_left(self):
         moved = self.calc_movement()
-        cover_up(self.location, (self.height, self.width))
+        map_cover_up(self.location, (self.width, self.height))
         self.location[0] -= int(moved[0])
         self.draw(util.enums.SCREEN)
 
     def move_right(self):
         moved = self.calc_movement()
-        cover_up(self.location, (self.height, self.width))
+        map_cover_up(self.location, (self.width, self.height))
         self.location[0] += int(moved[0])
         self.draw(util.enums.SCREEN)
 

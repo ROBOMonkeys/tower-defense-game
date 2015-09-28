@@ -1,4 +1,7 @@
-from pygame import mouse
+from pygame import mouse, font, image
+import util.enums
+from util.util import ui_cover_up
+import enums as ui_enums
 
 
 class Drawable():
@@ -63,3 +66,29 @@ class Clickable(Drawable):
                 self.callback()
 
 
+class UIElement(Drawable):
+    def __init__(self, img_path, location):
+        self.srf = image.load(img_path).convert_alpha()
+        self.location = location
+
+    def update_element(self, img_path, btm):
+        dims = (self.srf.get_height(), self.srf.get_width())
+        ui_cover_up(self.location, dims, btm)
+        self.srf = image.load(img_path).convert_alpha()
+        self.draw(util.enums.SCREEN)
+
+
+class UIString(Drawable):
+    def __init__(self, text, location, color=(0, 0, 0)):
+        if not font.get_init():
+            font.init()
+        self.fnt = font.Font(ui_enums.DEFAULT_FONT, ui_enums.DEFAULT_FONT_SIZE)
+        self.srf = self.fnt.render(text, 1, color)
+        self.color = color
+        self.location = location
+
+    def update_text(self, text, btm):
+        dims = (self.srf.get_width(), self.srf.get_height())
+        ui_cover_up(self.location, dims, btm)
+        self.srf = self.fnt.render(text, 1, self.color)
+        self.draw(util.enums.SCREEN)
