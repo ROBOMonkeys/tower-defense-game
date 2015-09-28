@@ -115,6 +115,10 @@ elif argv[1] == "scan":
     btn.draw(enums.SCREEN)
 elif argv[1] == "hearts":
     hearts = []
+    org1 = UIElement(enums.RES + "icons/orangebox1.png", (768, 0))
+    org2 = UIElement(enums.RES + "icons/orangebox2.png", (0, 575))
+    org1.draw(enums.SCREEN)
+    org2.draw(enums.SCREEN)
     for loc in ui_enums.HEART_LOCS:
         hearts.append(UIElement(enums.RES + "icons/heart.png", loc))
     for heart in hearts:
