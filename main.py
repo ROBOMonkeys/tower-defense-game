@@ -56,13 +56,16 @@ if len(argv) < 2:
     exit(1)
 
 
+c = None
+
 if argv[1] == "test":
     use_test_res()
-    
-pygame.init()
-pygame.mixer.init()
-pygame.mixer.music.load(enums.RES + "music/chee-zee-jungle.ogg")
-pygame.mixer.music.play(-1)
+    pygame.mixer.init()
+    pygame.mixer.music.load(enums.RES + "music/chee-zee-jungle.ogg")
+    pygame.mixer.music.play(-1)
+    pygame.init()
+    global c
+    c = Creature((image.load(enums.RES + "monkey.png")))
 
 enums.SCREEN = pygame.display.set_mode((enums.DEFAULT_WIDTH,
                                         enums.DEFAULT_HEIGHT))
@@ -79,8 +82,6 @@ clk = time.Clock()
 bg = get_current_map()
 
 enums.SCREEN.blit(bg, (0, 0))
-
-c = Creature((image.load(enums.RES + "monkey.png")))
 
 pygame.display.update()
 
@@ -99,7 +100,6 @@ elif argv[1] == "menu":
                 (310, 380)),
                (start_game, open_options, quit_game),
                bg_img=enums.RES + "main_menu.png")
-    
     mn1.draw(enums.SCREEN)
 elif argv[1] == "scan":
     btn = TextButton("Print Grid",
@@ -143,7 +143,8 @@ while running:
             else:
                 btn.click()
                 btn2.click()
-    c.draw(enums.SCREEN)
+    if c is not None:
+        c.draw(enums.SCREEN)
     pygame.display.update()
     clk.tick(60)
 
