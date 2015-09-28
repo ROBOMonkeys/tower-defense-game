@@ -2,21 +2,29 @@
 
 # TODO: grid based map system
 
-import pygame
 from sys import argv, exit
+
+import pygame
 from pygame.locals import QUIT, KEYDOWN, MOUSEBUTTONDOWN, \
     K_DOWN, K_UP, K_LEFT, K_RIGHT, K_q
 from pygame import image, time, mouse
+
 from ui.button import ImageButton, TextButton
 from ui.interfaces import UIElement, UIString
 from ui.menu import Menu
 import ui.enums as ui_enums
+
 import util.enums as enums
 from util.util import add_all_paths, add_all_maps, \
-    set_current_map, get_current_map, use_test_res, \
-    map_cover_up
-from sprites.interfaces import Creature
+    get_current_map, use_test_res
 import util.scanner as scanner
+
+from sprites.interfaces import Creature
+
+
+def quit_game():
+    global running
+    running = False
 
 
 def test():
@@ -48,10 +56,6 @@ def open_options():
     print('options opened')
 
 
-def quit_game():
-    global running
-    running = False
-
 if len(argv) < 2:
     print("python2 main.py menu (or buttons)")
     exit(1)
@@ -59,40 +63,34 @@ if len(argv) < 2:
 
 c = None
 
+pygame.init()
+enums.SCREEN = pygame.display.set_mode((enums.DEFAULT_WIDTH,
+                                        enums.DEFAULT_HEIGHT))
+    
+add_all_paths()
+add_all_maps()
+scanner.scan_map()
+
+bg = get_current_map()
+enums.SCREEN.blit(bg, (0, 0))
+pygame.display.update()
+
+
 if argv[1] == "test":
     use_test_res()
     pygame.mixer.init()
     pygame.mixer.music.load(enums.RES + "music/chee-zee-jungle.ogg")
     pygame.mixer.music.play(-1)
-    pygame.init()
     global c
     c = Creature((image.load(enums.RES + "monkey.png")))
 
-enums.SCREEN = pygame.display.set_mode((enums.DEFAULT_WIDTH,
-                                        enums.DEFAULT_HEIGHT))
-
-add_all_paths()
-add_all_maps()
-
-scanner.scan_map()
-
-running = True
-
-clk = time.Clock()
-
-bg = get_current_map()
-
-enums.SCREEN.blit(bg, (0, 0))
-
-pygame.display.update()
-
-if argv[1] == "buttons":
+if argv[2] == "buttons":
     buttons = [ImageButton(enums.RES + 'ok_button.png', (300, 200), test),
                TextButton("Start", (300, 100), (0, 0, 0), callback=test)]
 
     for btn in buttons:
         btn.draw(enums.SCREEN)
-elif argv[1] == "menu":
+elif argv[2] == "menu":
     buttons = False
     mn1 = Menu(("Amazing Cool Game!", (250, 200)),
                ("Start", "Options", "Quit"),
@@ -135,6 +133,9 @@ elif argv[1] == "ui":
             hearts.append(UIElement(enums.RES + "icons/heart.png", loc))
     for heart in hearts:
         heart.draw(enums.SCREEN)
+
+running = True
+clk = time.Clock()
 
 while running:
     for event in pygame.event.get():
