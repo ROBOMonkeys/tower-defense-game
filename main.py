@@ -166,7 +166,7 @@ while running:
                     clicked += 1
                     bunch_cntr.update_text(":  " + str(clicked), True)
                     hearts[-(clicked % len(hearts))].update_element(enums.RES + "icons/emptyheart.png", False)
-            else:
+            elif b3:
                 btn.click()
                 btn2.click()
     if c is not None:
