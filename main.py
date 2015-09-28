@@ -117,10 +117,15 @@ elif argv[1] == "hearts":
     hearts = []
     org1 = UIElement(enums.RES + "icons/orangebox1.png", (768, 0))
     org2 = UIElement(enums.RES + "icons/orangebox2.png", (0, 575))
+    bananas = UIElement(enums.RES + "icons/pixelbananabunch.png", (10, 584))
+    gear = UIElement(enums.RES + "icons/gear.png", (10, 634))
     org1.draw(enums.SCREEN)
     org2.draw(enums.SCREEN)
-    for loc in ui_enums.HEART_LOCS:
-        hearts.append(UIElement(enums.RES + "icons/heart.png", loc))
+    bananas.draw(enums.SCREEN)
+    gear.draw(enums.SCREEN)
+    for locs in ui_enums.HEART_LOCS:
+        for loc in locs:
+            hearts.append(UIElement(enums.RES + "icons/heart.png", loc))
     for heart in hearts:
         heart.draw(enums.SCREEN)
 
