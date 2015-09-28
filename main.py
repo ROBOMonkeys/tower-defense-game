@@ -8,6 +8,7 @@ from pygame.locals import QUIT, KEYDOWN, MOUSEBUTTONDOWN, \
     K_DOWN, K_UP, K_LEFT, K_RIGHT, K_q
 from pygame import image, time, mouse
 from ui.button import ImageButton, TextButton
+from ui.element import UIElement
 from ui.menu import Menu
 import ui.enums as ui_enums
 import util.enums as enums
@@ -112,7 +113,12 @@ elif argv[1] == "scan":
                       callback=print_grid_len)
     btn2.draw(enums.SCREEN)
     btn.draw(enums.SCREEN)
-
+elif argv[1] == "hearts":
+    hearts = []
+    for loc in ui_enums.HEART_LOCS:
+        hearts.append(UIElement(enums.RES + "icons/heart.png", loc))
+    for heart in hearts:
+        heart.draw(enums.SCREEN)
 
 while running:
     for event in pygame.event.get():
