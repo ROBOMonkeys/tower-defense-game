@@ -12,3 +12,5 @@ SPRITES = []
 SCREEN = None
 
 MAP_GRID = []
+
+DONATE = "http://www.robomonkeys.org/"

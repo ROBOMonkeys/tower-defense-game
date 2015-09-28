@@ -1,4 +1,5 @@
 import enums
+import python.webbrowser
 from pygame import image
 from os import listdir
 
@@ -75,3 +76,7 @@ def ui_cover_up(loc, dims, bottom):
 
 def build_in_game_ui():
     pass
+  
+  
+def open_donation_page():
+    python.webbrowser.open(enums.DONATE, new=2)
