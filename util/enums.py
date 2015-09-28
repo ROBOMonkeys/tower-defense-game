@@ -1,7 +1,5 @@
-from os import path
-
-TEST_RES = path.dirname(path.realpath(__file__)) + "/../test-res/"
-RES = path.dirname(path.realpath(__file__)) + "/../res/"
+TEST_RES = "test-res/"
+RES = "res/"
 
 DEFAULT_WIDTH = 910
 DEFAULT_HEIGHT = 685
