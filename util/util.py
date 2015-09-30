@@ -1,5 +1,5 @@
 import enums
-import python.webbrowser
+#import python.webbrowser
 from pygame import image
 from os import listdir
 
