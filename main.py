@@ -2,7 +2,7 @@
 
 # TODO: grid based map system
 
-from sys import argv, exit
+from sys import argv
 
 import pygame
 from pygame.locals import QUIT, KEYDOWN, MOUSEBUTTONDOWN, \
@@ -10,7 +10,8 @@ from pygame.locals import QUIT, KEYDOWN, MOUSEBUTTONDOWN, \
 from pygame import image, time, mouse
 
 from ui.button import ImageButton, TextButton
-from ui.interfaces import UIElement, UIString
+from ui.interfaces import UIString, UIElement
+from ui.element import Heart
 from ui.menu import Menu
 import ui.enums as ui_enums
 
@@ -18,6 +19,8 @@ import util.enums as enums
 from util.util import add_all_paths, add_all_maps, \
     get_current_map, use_test_res
 import util.scanner as scanner
+
+from test import *
 
 from sprites.interfaces import Creature
 
@@ -27,41 +30,12 @@ def quit_game():
     running = False
 
 
-def test():
-    print('okay')
-
-
-def print_grid():
-    for i in range(len(enums.MAP_GRID)):
-        print enums.MAP_GRID[i]
-
-
-def print_grid_len():
-    print len(enums.MAP_GRID)
-    prin_str = ""
-    for i in range(len(enums.MAP_GRID)):
-        num_ones = 0
-        for j in range(len(enums.MAP_GRID[i])):
-            if enums.MAP_GRID[i][j]:
-                num_ones += 1
-        prin_str += str(i) + ":" + str(num_ones) + ", "
-    print prin_str
-
-
-def start_game():
-    print('game started')
-
-
-def open_options():
-    print('options opened')
-
-
 c = None
 
 pygame.init()
 enums.SCREEN = pygame.display.set_mode((enums.DEFAULT_WIDTH,
                                         enums.DEFAULT_HEIGHT))
-    
+
 add_all_paths()
 add_all_maps()
 scanner.scan_map()
@@ -92,12 +66,12 @@ if len(argv) > 1:
                         (310, 340),
                         (310, 380)),
                        (start_game, open_options, quit_game),
-                   bg_img=enums.RES + "main_menu.png")
+                       bg_img=enums.RES + "main_menu.png")
             mn1.draw(enums.SCREEN)
             
     if argv[1] == "scan":
         btn = TextButton("Print Grid",
-                     (100, 200),
+                         (100, 200),
                          (255, 0, 0),
                          callback=print_grid)
         btn2 = TextButton("Print Grid Length",
@@ -125,7 +99,7 @@ if len(argv) > 1:
         gear_cntr.draw(enums.SCREEN)
         for locs in ui_enums.HEART_LOCS:
             for loc in locs:
-                hearts.append(UIElement(enums.RES + "icons/heart.png", loc))
+                hearts.append(Heart(loc))
         for heart in hearts:
             heart.draw(enums.SCREEN)
                     
@@ -155,13 +129,16 @@ while running:
                     enums.CUR_MAP = 0
                 enums.SCREEN.blit(enums.MAPS[enums.CUR_MAP], (0, 0))
                 scanner.scan_map()
-                if argv[1] == "scan":
-                    btn.draw(enums.SCREEN)
-                    btn2.draw(enums.SCREEN)
-                elif argv[1] == "ui":
+                if argv[1] == "ui":
                     clicked += 1
                     bunch_cntr.update_text(":  " + str(clicked), True)
-                    hearts[-(clicked % len(hearts))].update_element(enums.RES + "icons/emptyheart.png", False)
+                    heart = hearts[-(clicked % len(hearts))]
+                    if heart.get_heart() == "full":
+                        heart.set_heart("half")
+                    elif heart.get_heart() == "half":
+                        heart.set_heart("empty")
+                    else:
+                        heart.set_heart("full")
             elif b3:
                 btn.click()
                 btn2.click()
