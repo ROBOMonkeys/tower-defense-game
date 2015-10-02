@@ -1,5 +1,5 @@
 import util.enums as enums
-from sprites.interfaces import Tower
+from sprites.sprites import ProjectileTower
 from pygame import image
 
 
@@ -43,4 +43,4 @@ def open_options():
 
 
 def make_new_proj_tower():
-    enums.SPRITES[0].add(Tower((image.load(enums.RES + "towers/proj_wood_ig.png").convert_alpha()), 0))
+    enums.SPRITES[0].add(ProjectileTower())

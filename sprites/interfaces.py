@@ -108,13 +108,16 @@ class Tower(Animated, Intelligent, Drawable):
     IDLE = 2
     ATTACKING = 3
 
-    def __init__(self, frames, cost):
+    def __init__(self, frames, cost, hp, dmg):
         Animated.__init__(self, frames)
         self.state = Tower.PLACEMENT
         self.location = (0, 0)
         self.srf = self.frames[0]
         self.width = self.srf.get_width()
         self.height = self.srf.get_height()
+
+        self.hp = hp
+        self.damage = dmg
         self.cost = cost
         self.update()
 
@@ -161,13 +164,26 @@ class Tower(Animated, Intelligent, Drawable):
                 util.enums.MAP_GRID[y - 2][x] == 1 or
                 util.enums.MAP_GRID[y][x + 2] == 1 or
                 util.enums.MAP_GRID[y][x - 2] == 1) and \
-                 util.enums.MAP_GRID[y][x] != 1 and \
-                 util.enums.MAP_GRID[y][x] != 2:
+               (util.enums.MAP_GRID[y + 1][x] != 1 and
+                util.enums.MAP_GRID[y - 1][x] != 1 and
+                util.enums.MAP_GRID[y][x + 1] != 1 and
+                util.enums.MAP_GRID[y][x - 1] != 1) and \
+                util.enums.MAP_GRID[y][x] != 1 and \
+               util.enums.MAP_GRID[y][x] != 2:
                 util.enums.MAP_GRID[y][x] = 2
                 return True
             return False
         except:
-            return False
+            try:
+                if (util.enums.MAP_GRID[y][x + 2] == 1 or
+                    util.enums.MAP_GRID[y][x - 2] == 1) and \
+                    util.enums.MAP_GRID[y][x] != 1 and \
+                   util.enums.MAP_GRID[y][x] != 2:
+                    util.enums.MAP_GRID[y][x] = 2
+                    return True
+                return False
+            except:
+                return False
 
     def add_to_bg(self):
         x, y = self.location

@@ -11,9 +11,10 @@ from pygame import image, time, mouse
 
 from ui.button import ImageButton, TextButton
 from ui.interfaces import UIString, UIElement
-from ui.element import Heart, TowerBox, UpgradeBox
+from ui.element import Heart
 from ui.menu import Menu
 import ui.enums as ui_enums
+from ui import ui_util
 
 import util.enums as enums
 from util.util import add_all_paths, add_all_maps, \
@@ -55,7 +56,7 @@ if len(argv) > 1:
         if argv[2] == "buttons":
             buttons = [ImageButton(enums.RES + 'ok_button.png', (300, 200), test),
                        TextButton("Start", (300, 100), (0, 0, 0), callback=test)]
-            
+
             for btn in buttons:
                 btn.draw(enums.SCREEN)
         elif argv[2] == "menu":
@@ -68,7 +69,7 @@ if len(argv) > 1:
                        (start_game, open_options, quit_game),
                        bg_img=enums.RES + "main_menu.png")
             mn1.draw(enums.SCREEN)
-            
+
     if argv[1] == "scan":
         btn = TextButton("Print Grid",
                          (100, 200),
@@ -93,11 +94,15 @@ if len(argv) > 1:
         gear_cntr = UIString(": 0", (60, 639))
 
         btn_srf = image.load(enums.RES + "icons/towerbox.png").convert_alpha()
-        btn_srf.blit(image.load(enums.RES + "towers/proj_wood_p.png").convert_alpha(),
-                     (5, 5))
+        ui_util.blit_subsurface(btn_srf,
+                                image.load(enums.RES + "towers/proj_wood_p.png").convert_alpha(),
+                                (5, 5),
+                                resize=True,
+                                size=(35, 37))
         btn = ImageButton(btn_srf,
                           ui_enums.TOWER_LOCS[0],
                           make_new_proj_tower)
+        del btn_srf
         org1.draw(enums.SCREEN)
         org2.draw(enums.SCREEN)
         bananas.draw(enums.SCREEN)

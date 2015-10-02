@@ -80,15 +80,11 @@ def screen_cover_up(locs, dims):
                                           dims[0],
                                           dims[1]),
                       locs)
-    
+
 
 def get_map_size():
     return (get_current_map().get_width(),
             get_current_map().get_height())
-
-
-def build_in_game_ui():
-    pass
 
 
 def open_donation_page():
