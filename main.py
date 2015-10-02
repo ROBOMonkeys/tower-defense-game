@@ -137,7 +137,7 @@ while running:
             if b1:
                 if argv[1] == "ui":
                     clicked += 1
-                    bunch_cntr.update_text(":  " + str(clicked), True)
+                    bunch_cntr.change_text(":  " + str(clicked), True)
                     heart = hearts[-(clicked % len(hearts))]
                     if heart.get_heart() == "full":
                         heart.set_heart("half")

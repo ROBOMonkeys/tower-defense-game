@@ -64,6 +64,11 @@ class Clickable(Drawable):
         if self.isOver():
             if self.callback is not None:
                 self.callback()
+                
+    def update(self):
+        if mouse.get_pressed()[0]:
+            self.click()
+        self.draw(util.enums.SCREEN)
 
 
 class UIElement(Drawable):
@@ -87,7 +92,7 @@ class UIString(Drawable):
         self.color = color
         self.location = location
 
-    def update_text(self, text, btm):
+    def change_text(self, text, btm):
         dims = (self.srf.get_width(), self.srf.get_height())
         ui_cover_up(self.location, dims, btm)
         self.srf = self.fnt.render(text, 1, self.color)
