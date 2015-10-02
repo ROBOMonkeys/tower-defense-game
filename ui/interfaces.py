@@ -93,12 +93,14 @@ class UIString(Drawable):
         self.srf = self.fnt.render(text, 1, self.color)
         self.draw(util.enums.SCREEN)
 
-        
+
 class UIBox(UIElement):
     def __init__(self, loc, sub_img, upgrade_box=False):
-        UIElement.__init__(util.enums.RES + "icons/towerbox.png", loc)
+        UIElement.__init__(self, util.enums.RES + "icons/towerbox.png", loc)
         self.subImg = image.load(util.enums.RES + sub_img).convert_alpha()
-        self.subImg = transform.smoothscale(self.subImg, (24, 24))
+        self.upgrade = upgrade_box
+        if upgrade_box:
+            self.subImg = transform.smoothscale(self.subImg, (37, 32))
 
         if upgrade_box:
             self.sub_loc = (5, 5)
@@ -112,5 +114,8 @@ class UIBox(UIElement):
 
     def update_subimage(self, subimg):
         self.subImg = image.load(util.enums.RES + subimg).convert_alpha()
-        self.subImg = transform.smoothscale(self.subImg, (24, 24))
+        if self.upgrade:
+            self.subImg = transform.smoothscale(self.subImg, (37, 32))
+        else:
+            self.subImg = transform.smoothscale(self.subImg, (37, 32))
         self.draw_subimg()

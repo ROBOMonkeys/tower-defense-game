@@ -1,5 +1,5 @@
 import enums
-#import python.webbrowser
+import webbrowser
 from pygame import image
 from os import listdir
 
@@ -74,9 +74,22 @@ def ui_cover_up(loc, dims, bottom):
                       loc)
 
 
+def screen_cover_up(locs, dims):
+    enums.SCREEN.blit(enums.BG.subsurface(locs[0],
+                                          locs[1],
+                                          dims[0],
+                                          dims[1]),
+                      locs)
+    
+
+def get_map_size():
+    return (get_current_map().get_width(),
+            get_current_map().get_height())
+
+
 def build_in_game_ui():
     pass
-  
-  
+
+
 def open_donation_page():
-    python.webbrowser.open(enums.DONATE, new=2)
+    webbrowser.open(enums.DONATE, new=2)

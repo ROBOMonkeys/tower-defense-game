@@ -1,13 +1,25 @@
 import util.enums as enums
+from sprites.interfaces import Tower
+from pygame import image
 
 
 def test():
     print('okay')
 
 
-def print_grid():
+def print_grid(pos=None):
+    if pos is not None:
+        for i in range(len(enums.MAP_GRID)):
+            for j in range(len(enums.MAP_GRID[i])):
+                if i == pos[0] and j == pos[1]:
+                    print 'X',
+                else:
+                    print enums.MAP_GRID[i][j],
+            print 
     for i in range(len(enums.MAP_GRID)):
-        print enums.MAP_GRID[i]
+        for j in range(len(enums.MAP_GRID[i])):
+            print enums.MAP_GRID[i][j],
+        print
 
 
 def print_grid_len():
@@ -28,3 +40,7 @@ def start_game():
 
 def open_options():
     print('options opened')
+
+
+def make_new_proj_tower():
+    enums.SPRITES[0].add(Tower((image.load(enums.RES + "towers/proj_wood_ig.png").convert_alpha())))

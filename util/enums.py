@@ -10,6 +10,7 @@ PATHS = []
 SPRITES = []
 
 SCREEN = None
+BG = None
 
 MAP_GRID = []
 

@@ -1,4 +1,4 @@
-from pygame import image, font
+from pygame import image, font, Surface
 from ui.enums import DEFAULT_FONT, DEFAULT_FONT_SIZE
 from ui.interfaces import Clickable
 
@@ -14,7 +14,10 @@ Vars:
     """
 
     def __init__(self, img_path, loc, callback=None):
-        self.srf = image.load(img_path).convert_alpha()
+        if type(img_path) == Surface:
+            self.srf = img_path
+        else:
+            self.srf = image.load(img_path).convert_alpha()
         self.location = loc
         self.height = self.srf.get_height()
         self.width = self.srf.get_width()

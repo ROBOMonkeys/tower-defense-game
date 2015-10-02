@@ -9,12 +9,13 @@
 - attacking and damaging
 - sprite class (subclasses Creature)
 - flesh out Intelligent class (abstract class that holds AI functions)
+- Tower facing animations
 
 ## Utility Team
 
 - make helper functions for other teams
 - map generator
-- open_donation_page function (python.webbrowser.open(URL, new=2))
+- sell box
 
 ## UI Team
 
@@ -25,6 +26,9 @@
 - options (?)
 - make tool-tip class (see Surface.set_alpha)
 - donation screen
+- upgrade boxes
+- sell box
+- sell confirmation buttons
 
 ## Art Team
 

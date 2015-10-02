@@ -24,4 +24,3 @@ def scan_map():
                                                          TILE_H,
                                                          TILE_W)):
                     enums.MAP_GRID[h][w] = 1
-#                    print "dirt ID'd at x:" + str(w * TILE_W) + ", y:" + str(h * TILE_H)
