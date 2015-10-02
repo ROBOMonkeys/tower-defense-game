@@ -1,9 +1,9 @@
-from interface import Creature, Intelligent
+from interface import Robot, Intelligent
 
 
-class AutoCreature(Creature, Intelligent):
+class AutoRobot(Robot, Intelligent):
     def __init__(self, frames):
-        Creature.__init__(self, frames)
+        Robot.__init__(self, frames)
 
 
 

@@ -66,6 +66,9 @@ class Clickable(Drawable):
                 self.callback()
                 
     def update(self):
+        """
+        function that checks if the button was clicked and draws the button
+        """
         if mouse.get_pressed()[0]:
             self.click()
         self.draw(util.enums.SCREEN)
@@ -75,11 +78,15 @@ class UIElement(Drawable):
     def __init__(self, img_path, location):
         self.srf = image.load(img_path).convert_alpha()
         self.location = location
+        self.update()
 
     def update_element(self, img_path, btm):
         dims = (self.srf.get_height(), self.srf.get_width())
         ui_cover_up(self.location, dims, btm)
         self.srf = image.load(img_path).convert_alpha()
+        self.update()
+
+    def update(self):
         self.draw(util.enums.SCREEN)
 
 
@@ -91,11 +98,15 @@ class UIString(Drawable):
         self.srf = self.fnt.render(text, 1, color)
         self.color = color
         self.location = location
+        self.update()
 
     def change_text(self, text, btm):
         dims = (self.srf.get_width(), self.srf.get_height())
         ui_cover_up(self.location, dims, btm)
         self.srf = self.fnt.render(text, 1, self.color)
+        self.update()
+
+    def update(self):
         self.draw(util.enums.SCREEN)
 
 

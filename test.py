@@ -43,4 +43,4 @@ def open_options():
 
 
 def make_new_proj_tower():
-    enums.SPRITES[0].add(Tower((image.load(enums.RES + "towers/proj_wood_ig.png").convert_alpha())))
+    enums.SPRITES[0].add(Tower((image.load(enums.RES + "towers/proj_wood_ig.png").convert_alpha()), 0))

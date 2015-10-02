@@ -22,7 +22,7 @@ import util.scanner as scanner
 
 from test import *
 
-from sprites.interfaces import Creature, Group
+from sprites.interfaces import Robot, Group
 
 
 def quit_game():
@@ -51,7 +51,7 @@ if len(argv) > 1:
         pygame.mixer.music.load(enums.RES + "music/chee-zee-jungle.ogg")
         pygame.mixer.music.play(-1)
         global c
-        c = Creature((image.load(enums.RES + "monkey.png")))
+        c = Robot((image.load(enums.RES + "monkey.png")))
         if argv[2] == "buttons":
             buttons = [ImageButton(enums.RES + 'ok_button.png', (300, 200), test),
                        TextButton("Start", (300, 100), (0, 0, 0), callback=test)]
@@ -108,8 +108,6 @@ if len(argv) > 1:
         for locs in ui_enums.HEART_LOCS:
             for loc in locs:
                 hearts.append(Heart(loc))
-        for heart in hearts:
-            heart.draw(enums.SCREEN)
 scanner.scan_map()
 enums.SPRITES.append(Group())
 enums.BG = enums.SCREEN.copy()
@@ -139,13 +137,15 @@ while running:
                     clicked += 1
                     bunch_cntr.change_text(":  " + str(clicked), True)
                     heart = hearts[-(clicked % len(hearts))]
-                    if heart.get_heart() == "full":
-                        heart.set_heart("half")
-                    elif heart.get_heart() == "half":
-                        heart.set_heart("empty")
+                    if heart.get_heart() == Heart.FULL:
+                        heart.set_heart(Heart.HALF)
+                    elif heart.get_heart() == Heart.HALF:
+                        heart.set_heart(Heart.EMPTY)
                     else:
-                        heart.set_heart("full")
-                    btn.click()
+                        heart.set_heart(Heart.FULL)
+                    btn.update()
+    for heart in hearts:
+        heart.update()
     if len(enums.SPRITES) > 0:
         enums.SPRITES[0].update()
     if c is not None:
