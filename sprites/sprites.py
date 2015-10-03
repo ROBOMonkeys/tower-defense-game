@@ -1,5 +1,6 @@
 from pygame import image
 from interfaces import Robot, Intelligent, Tower
+from util.util import parse_spritesheet
 import util.enums
 
 
@@ -10,6 +11,7 @@ class AutoRobot(Robot, Intelligent):
 
 class ProjectileTower(Tower):
     def __init__(self):
-        proj_img = image.load(util.enums.RES +
-                              "towers/proj_wood_ig.png").convert_alpha()
-        Tower.__init__(self, proj_img, 10, 15, 5)
+        Tower.__init__(self, parse_spritesheet(util.enums.RES +
+                                               "spritesheets/" +
+                                               "proj_0_ss.png"),
+                       10, 15, 5, "proj")

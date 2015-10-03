@@ -1,6 +1,6 @@
 from pygame import image, font, Surface
 from ui.enums import DEFAULT_FONT, DEFAULT_FONT_SIZE
-from ui.interfaces import Clickable
+from ui.interfaces import Clickable, ClickLock
 
 
 class ImageButton(Clickable):
@@ -63,3 +63,9 @@ Vars:
         
         self.location = loc
         self.callback = callback
+
+
+class LockButton(ClickLock, ImageButton):
+    def __init__(self, img_path, loc, callback=None):
+        ImageButton.__init__(self, img_path, loc, callback)
+        self.lock_ = False

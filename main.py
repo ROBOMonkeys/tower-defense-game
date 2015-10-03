@@ -3,13 +3,14 @@
 # TODO: grid based map system
 
 from sys import argv
+from os import path
 
 import pygame
 from pygame.locals import QUIT, KEYDOWN, MOUSEBUTTONDOWN, \
     K_DOWN, K_UP, K_LEFT, K_RIGHT, K_q
 from pygame import image, time, mouse
 
-from ui.button import ImageButton, TextButton
+from ui.button import ImageButton, TextButton, LockButton
 from ui.interfaces import UIString, UIElement
 from ui.element import Heart
 from ui.menu import Menu
@@ -30,6 +31,7 @@ def quit_game():
     global running
     running = False
 
+enums.RES = path.dirname(path.realpath(__file__)) + "/res/"
 
 c = None
 
@@ -95,10 +97,10 @@ if len(argv) > 1:
 
         btn_srf = image.load(enums.RES + "icons/towerbox.png").convert_alpha()
         ui_util.blit_subsurface(btn_srf,
-                                image.load(enums.RES + "towers/proj_wood_p.png").convert_alpha(),
+                                image.load(enums.RES + "towers/proj_0_p.png").convert_alpha(),
                                 (5, 5),
                                 resize=True,
-                                size=(35, 37))
+                                size=(37, 39))
         btn = ImageButton(btn_srf,
                           ui_enums.TOWER_LOCS[0],
                           make_new_proj_tower)
@@ -125,15 +127,7 @@ while running:
         if event.type == QUIT:
             running = False
         elif event.type == KEYDOWN:
-            if event.key == K_LEFT:
-                c.move_left()
-            elif event.key == K_RIGHT:
-                c.move_right()
-            elif event.key == K_UP:
-                c.move_up()
-            elif event.key == K_DOWN:
-                c.move_down()
-            elif event.key == K_q:
+            if event.key == K_q:
                 quit_game()
         elif event.type == MOUSEBUTTONDOWN:
             b1, b2, b3 = mouse.get_pressed()
@@ -148,6 +142,12 @@ while running:
                         heart.set_heart(Heart.EMPTY)
                     else:
                         heart.set_heart(Heart.FULL)
+                    if b2:
+                        for t in enums.SPRITES[0]:
+                            t.upgrade()
+                    if b3:
+                        for t in enums.SPRITES[0]:
+                            t.set_state(3)
                     btn.update()
     for heart in hearts:
         heart.update()

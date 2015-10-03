@@ -2,6 +2,7 @@ import enums
 import webbrowser
 from pygame import image
 from os import listdir
+import ui.enums
 
 
 def use_test_res():
@@ -89,3 +90,14 @@ def get_map_size():
 
 def open_donation_page():
     webbrowser.open(enums.DONATE, new=2)
+
+
+def parse_spritesheet(img_path):
+    srf = image.load(img_path).convert_alpha()
+    frames = []
+    for x in range(int(srf.get_width() / ui.enums.TILE_W)):
+        frames.append(srf.subsurface(x * ui.enums.TILE_W,
+                                     0,
+                                     ui.enums.TILE_W,
+                                     ui.enums.TILE_H))
+    return tuple(frames)

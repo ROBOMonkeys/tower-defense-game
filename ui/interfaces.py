@@ -74,6 +74,31 @@ class Clickable(Drawable):
         self.draw(util.enums.SCREEN)
 
 
+class ClickLock(Clickable):
+    def lock(self):
+        self.lock_ = True
+
+    def unlock(self):
+        self.lock_ = False
+
+    def get_lock(self):
+        return self.lock_
+
+    def toggle_lock(self):
+        if self.get_lock():
+            self.unlock()
+        else:
+            self.lock()
+
+    def update(self):
+        print self.get_lock()
+        if not self.get_lock():
+            if mouse.get_pressed()[0]:
+                self.toggle_lock()
+                self.click()
+        self.draw(util.enums.SCREEN)
+
+
 class UIElement(Drawable):
     def __init__(self, img_path, location):
         self.srf = image.load(img_path).convert_alpha()

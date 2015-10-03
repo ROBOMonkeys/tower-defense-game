@@ -14,4 +14,6 @@ BG = None
 
 MAP_GRID = []
 
+MONEY = 0
+
 DONATE = "http://www.robomonkeys.org/"
