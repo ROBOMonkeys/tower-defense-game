@@ -120,6 +120,11 @@ class Tower(Animated, Intelligent, Clickable):
     GOLD = 2
     PLATINUM = 3
     PLUTONIUM = 4
+    
+    NORTH = 0
+    SOUTH = 1
+    EAST = 2
+    WEST =3
 
     def __init__(self, frames, cost, hp, dmg, name):
         Animated.__init__(self, frames)
@@ -134,6 +139,7 @@ class Tower(Animated, Intelligent, Clickable):
         self.damage = dmg
         self.cost = cost
         self.level = Tower.WOOD
+        self.dir = Tower.NORTH
 
         self.update()
 
