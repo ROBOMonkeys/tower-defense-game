@@ -172,7 +172,7 @@ class Tower(Animated, Intelligent, Clickable):
                 self.frame = 0
         elif self.state == Tower.ATTACKING:
             map_cover_up(self.location, (self.width, self.height))
-            self.animate(50)
+            self.animate(10)
         self.srf = self.frames[self.frame]
         self.draw(util.enums.SCREEN)
 
