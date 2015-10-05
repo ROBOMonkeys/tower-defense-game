@@ -136,6 +136,7 @@ class Tower(Animated, Intelligent, Clickable):
         self.height = self.srf.get_height()
         self.name = name
         self.bg_back = None
+        self.selected = True
 
         self.hp = hp
         self.damage = dmg
@@ -167,7 +168,7 @@ class Tower(Animated, Intelligent, Clickable):
         elif btns[0] and (self.state == Tower.IDLE or
                           self.state == Tower.ATTACKING):
             self.click()
-            
+
         if self.state == Tower.PLACEMENT:
             self.location = pos
         elif self.state == Tower.CHECKING:
@@ -206,23 +207,25 @@ class Tower(Animated, Intelligent, Clickable):
         x = self.location[0] - (radius - (self.width / 2))
         y = self.location[1] - (radius - (self.height / 2))
 
-        select_srf = Surface((radius * 2, radius * 2))
-        select_srf.fill((0, 0, 255))
         self.bg_back = util.enums.SCREEN.subsurface(x,
                                                     y,
                                                     radius * 2,
                                                     radius * 2)
         self.bg_back = self.bg_back.copy()
 
-        select_srf.set_alpha(128)
-        blit_subsurface(util.enums.SCREEN, select_srf, (x, y))
-        del select_srf
+        blit_subsurface(util.enums.SCREEN, util.enums.SELECTION, (x, y),
+                        resize=True, size=(radius * 2, radius * 2))
 
     def click(self):
         time.delay(100)
-        if self.isOver():
-            self.select()
+        if self.isOver() and not self.selected:
+            self.selected = True
         else:
+            self.selected = False
+
+        if self.selected:
+            self.select()
+        if not self.selected and self.bg_back is not None:
             self.deselect()
 
     def check_under(self, x, y):

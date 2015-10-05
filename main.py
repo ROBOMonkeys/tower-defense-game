@@ -37,6 +37,8 @@ c = None
 pygame.init()
 enums.SCREEN = pygame.display.set_mode((enums.DEFAULT_WIDTH,
                                         enums.DEFAULT_HEIGHT))
+enums.SELECTION = image.load(enums.SELECTION).convert_alpha()
+enums.SELECTION.set_alpha(125)
 
 add_all_paths()
 add_all_maps()

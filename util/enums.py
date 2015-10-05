@@ -15,5 +15,6 @@ BG = None
 MAP_GRID = []
 
 MONEY = 0
+SELECTION = RES + "icons/transcircle.png"
 
 DONATE = "http://www.robomonkeys.org/"
