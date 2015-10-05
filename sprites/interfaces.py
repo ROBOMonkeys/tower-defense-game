@@ -1,6 +1,7 @@
-from pygame import mouse, time
+from pygame import mouse, time, draw, Surface
 from ui.interfaces import Drawable, Clickable
 from ui.enums import TILE_H, TILE_W
+from ui.ui_util import blit_subsurface
 from util.util import map_cover_up, screen_cover_up, \
     get_map_size, parse_spritesheet
 import util.enums
@@ -126,7 +127,7 @@ class Tower(Animated, Intelligent, Clickable):
     EAST = 2
     WEST =3
 
-    def __init__(self, frames, cost, hp, dmg, name):
+    def __init__(self, frames, cost, hp, dmg, name, aoe=2):
         Animated.__init__(self, frames)
         self.state = Tower.PLACEMENT
         self.location = (0, 0)
@@ -134,10 +135,12 @@ class Tower(Animated, Intelligent, Clickable):
         self.width = self.srf.get_width()
         self.height = self.srf.get_height()
         self.name = name
+        self.bg_back = None
 
         self.hp = hp
         self.damage = dmg
         self.cost = cost
+        self.aoe = aoe
         self.level = Tower.WOOD
         self.dir = Tower.NORTH
 
@@ -161,8 +164,10 @@ class Tower(Animated, Intelligent, Clickable):
             util.enums.SPRITES[0].pop()
             util.enums.MONEY += self.cost
             return
-        elif btns[2]:
+        elif btns[0] and (self.state == Tower.IDLE or
+                          self.state == Tower.ATTACKING):
             self.click()
+            
         if self.state == Tower.PLACEMENT:
             self.location = pos
         elif self.state == Tower.CHECKING:
@@ -171,6 +176,7 @@ class Tower(Animated, Intelligent, Clickable):
                     self.location = (x * TILE_W, y * TILE_H)
                     self.add_to_bg()
                     self.state = Tower.IDLE
+                    self.select()
                 else:
                     self.state = Tower.PLACEMENT
         elif self.state == Tower.IDLE:
@@ -185,13 +191,39 @@ class Tower(Animated, Intelligent, Clickable):
     def set_state(self, s):
         self.state = s
 
+    def deselect(self):
+        radius = self.aoe * TILE_H
+
+        x = self.location[0] - (radius - (self.width / 2))
+        y = self.location[1] - (radius - (self.height / 2))
+
+        blit_subsurface(util.enums.SCREEN, self.bg_back, (x, y))
+        self.bg_back = None
+
+    def select(self):
+        radius = self.aoe * TILE_H
+
+        x = self.location[0] - (radius - (self.width / 2))
+        y = self.location[1] - (radius - (self.height / 2))
+
+        select_srf = Surface((radius * 2, radius * 2))
+        select_srf.fill((0, 0, 255))
+        self.bg_back = util.enums.SCREEN.subsurface(x,
+                                                    y,
+                                                    radius * 2,
+                                                    radius * 2)
+        self.bg_back = self.bg_back.copy()
+
+        select_srf.set_alpha(128)
+        blit_subsurface(util.enums.SCREEN, select_srf, (x, y))
+        del select_srf
+
     def click(self):
         time.delay(100)
         if self.isOver():
-            if self.state == 3:
-                self.state = 2
-            elif self.state == 2:
-                self.state = 3
+            self.select()
+        else:
+            self.deselect()
 
     def check_under(self, x, y):
         """

@@ -6,11 +6,10 @@ from sys import argv
 from os import path
 
 import pygame
-from pygame.locals import QUIT, KEYDOWN, MOUSEBUTTONDOWN, \
-    K_DOWN, K_UP, K_LEFT, K_RIGHT, K_q
+from pygame.locals import QUIT, KEYDOWN, MOUSEBUTTONDOWN, K_q, K_ESCAPE
 from pygame import image, time, mouse
 
-from ui.button import ImageButton, TextButton, LockButton
+from ui.button import ImageButton, TextButton
 from ui.interfaces import UIString, UIElement
 from ui.element import Heart
 from ui.menu import Menu
@@ -85,8 +84,8 @@ if len(argv) > 1:
         btn.draw(enums.SCREEN)
     elif argv[1] == "ui":
         hearts = []
-        org1 = UIElement(enums.RES + "icons/orangebox1.png", (768, 0))
-        org2 = UIElement(enums.RES + "icons/orangebox2.png", (0, 575))
+        org1 = UIElement(enums.RES + "icons/orangebox4.png", (768, 0))
+        org2 = UIElement(enums.RES + "icons/orangebox3.png", (0, 575))
         bananas = UIElement(enums.RES + "icons/pixelbananabunch.png",
                             ui_enums.BUNCH_LOC)
         gear = UIElement(enums.RES + "icons/gear.png",

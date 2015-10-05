@@ -1,4 +1,3 @@
-from pygame import image
 from interfaces import Robot, Intelligent, Tower
 from util.util import parse_spritesheet
 import util.enums
@@ -14,4 +13,4 @@ class ProjectileTower(Tower):
         Tower.__init__(self, parse_spritesheet(util.enums.RES +
                                                "spritesheets/" +
                                                "proj_0_ss.png"),
-                       10, 15, 5, "proj")
+                       10, 15, 5, "proj", 3)
