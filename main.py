@@ -149,12 +149,6 @@ while running:
                         heart.set_heart(Heart.EMPTY)
                     else:
                         heart.set_heart(Heart.FULL)
-<<<<<<< HEAD
-=======
-                    if b3:
-                        for t in enums.SPRITES[0]:
-                            t.set_state(3)
->>>>>>> 1931732e98c6927805f44b07fa1eaaf6b72825b4
                     btn.update()
             if b2:
                 for t in enums.SPRITES[0]:
