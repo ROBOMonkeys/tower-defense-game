@@ -143,13 +143,13 @@ while running:
                         heart.set_heart(Heart.EMPTY)
                     else:
                         heart.set_heart(Heart.FULL)
-                    if b2:
-                        for t in enums.SPRITES[0]:
-                            t.upgrade()
-                    if b3:
-                        for t in enums.SPRITES[0]:
-                            t.set_state(3)
                     btn.update()
+            if b2:
+                for t in enums.SPRITES[0]:
+                    t.upgrade()
+            if b3:
+                for t in enums.SPRITES[0]:
+                    t.set_state(3)
     for heart in hearts:
         heart.update()
     if len(enums.SPRITES) > 0:
