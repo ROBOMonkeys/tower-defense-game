@@ -6,7 +6,7 @@ from sys import argv
 from os import path
 
 import pygame
-from pygame.locals import QUIT, KEYDOWN, MOUSEBUTTONDOWN, K_q, K_ESCAPE
+from pygame.locals import QUIT, KEYDOWN, MOUSEBUTTONDOWN, K_q, K_ESCAPE, K_u, K_a
 from pygame import image, time, mouse
 
 from ui.button import ImageButton, TextButton
@@ -130,6 +130,12 @@ while running:
         elif event.type == KEYDOWN:
             if event.key == K_q:
                 quit_game()
+            if event.key == K_u:
+                for t in enums.SPRITES[0].list:
+                    t.upgrade()
+            if event.key == K_a:
+                for t in enums.SPRITES[0].list:
+                    t.set_state(3)
         elif event.type == MOUSEBUTTONDOWN:
             b1, b2, b3 = mouse.get_pressed()
             if b1:
@@ -143,6 +149,12 @@ while running:
                         heart.set_heart(Heart.EMPTY)
                     else:
                         heart.set_heart(Heart.FULL)
+<<<<<<< HEAD
+=======
+                    if b3:
+                        for t in enums.SPRITES[0]:
+                            t.set_state(3)
+>>>>>>> 1931732e98c6927805f44b07fa1eaaf6b72825b4
                     btn.update()
             if b2:
                 for t in enums.SPRITES[0]:
